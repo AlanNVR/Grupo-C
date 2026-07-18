@@ -119,14 +119,24 @@ El campo de las transformaciones de modelos no es incipiente ni marginal. Kahani
 
 \section{Criterios éticos en el uso de herramientas de generación de código}
 \label{sec:etica-ia}
-
+Junto con el rigor técnico del ciclo MDD, es necesario considerar los criterios éticos aplicados durante la generación de código con Visual Paradigm. Se abordan tres ejes.
 
 \subsection{Transparencia: código generado vs. código escrito a mano}
 \label{sec:transparencia}
-
+Todo el código producido por el \textit{Instant Generator} de Visual Paradigm reside
+exclusivamente en la carpeta \texttt{generado/} del repositorio del equipo, separada de
+cualquier ajuste manual posterior. Cuando fue necesario completar a mano una parte que el
+generador no cubre, dicho fragmento se documenta explícitamente en la tabla de
+correspondencia modelo~$\rightarrow$~código de la Sección~9, indicando el elemento del modelo
+que lo origina y la razón por la que requirió intervención manual. Esta separación es una
+condición ética mínima para la validez de la evidencia presentada: presentar código escrito a
+mano como si fuera generado por la herramienta —o viceversa— compromete tanto la
+fiabilidad de la demostración en vivo como la trazabilidad exigida entre el modelo UML y el
+artefacto de software resultante.
 
 \subsection{Licenciamiento del código generado}
 \label{sec:licenciamiento}
+
 
 \subsection{Sesgos y limitaciones de los generadores basados en IA generativa}
 \label{sec:sesgos-ia}
