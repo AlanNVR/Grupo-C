@@ -76,6 +76,15 @@ El Model-Driven Engineering (MDE) es el paradigma de ingeniería de software en 
 
 \subsection{Model-Driven Architecture (MDA) y niveles de abstracción}
 \label{sec:mda}
+La Model-Driven Architecture (MDA) es la iniciativa concreta del Object Management Group (OMG) que operacionaliza el MDE mediante tres niveles de abstracción \cite{omg2014mda}:
+ 
+\begin{itemize}
+  \item \textbf{CIM (Computation Independent Model):} modelo de dominio y de negocio, sin referencia a cómo el sistema será construido. En el caso del PFC, corresponde al proceso de negocio de monitoreo y mantenimiento de las palmeras.
+  \item \textbf{PIM (Platform Independent Model):} modelo de la lógica y estructura del sistema, independiente de la plataforma tecnológica de despliegue. Es el nivel en el que se sitúa el diagrama de clases construido en Visual Paradigm (entidades como \texttt{Palma}, sus atributos y relaciones).
+  \item \textbf{PSM (Platform Specific Model):} modelo derivado del PIM, ya ligado a una plataforma, lenguaje o framework concretos (el código Java/otro lenguaje objetivo generado por Visual Paradigm).
+\end{itemize}
+ 
+Entre estos niveles median transformaciones que preservan, idealmente, la semántica del modelo de origen a medida que se añade detalle específico de plataforma \cite{omg2014mda, omg2017uml}.
 
 \subsection{Model-Driven Development (MDD)}
 \label{sec:mdd}
