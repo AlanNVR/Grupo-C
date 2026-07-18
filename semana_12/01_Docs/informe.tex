@@ -72,6 +72,7 @@ Repositorio: \url{https://github.com/AlanNVR/Grupo-C}
 
 \subsection{Model-Driven Engineering (MDE)}
 \label{sec:mde}
+El Model-Driven Engineering (MDE) es el paradigma de ingeniería de software en el que los modelos dejan de ser documentación de apoyo y pasan a ser artefactos de primera clase del proceso de desarrollo: la fuente autoritativa a partir de la cual se derivan, mediante transformaciones automatizadas, las implementaciones del sistema \cite{schmidt2006}. Bajo este enfoque, el esfuerzo de ingeniería se desplaza de la escritura manual de código hacia la definición precisa de modelos y de las reglas que los transforman, lo que favorece la trazabilidad, la reutilización y la reducción de errores de transcripción entre el diseño y la implementación. Trabajos recientes confirman que este desplazamiento no es solo teórico: Di Ruscio et al. \cite{diruscio2022} muestran que incluso las plataformas \textit{low-code} actuales —pensadas para usuarios sin formación técnica profunda— son, en esencia, una reencarnación práctica de los principios del MDE, lo que evidencia la vigencia y expansión industrial del paradigma.
 
 \subsection{Model-Driven Architecture (MDA) y niveles de abstracción}
 \label{sec:mda}
@@ -168,18 +169,18 @@ Archivo nativo del modelo: \texttt{modelo/proyecto.vpp}.
 \subsection{Cambio aplicado}
 Para evidenciar el cierre del ciclo se seleccionó la clase Palma, entidad central del dominio del
 sistema, y se le agregó el atributo fechaUltimoMantenimiento de tipo Date. Este cambio se
-eligió por ser no trivial (posee tipo denido y no corresponde a un simple renombrado) y por su
+eligió por ser no trivial (posee tipo definido y no corresponde a un simple renombrado) y por su
 pertinencia directa con el propósito del sistema: registrar la fecha de la última intervención de
 mantenimiento realizada sobre cada palma monitoreada.
 Tras aplicar el cambio en el modelo dentro de Visual Paradigm y validar su sintaxis, se
 regeneró el código utilizando la misma plantilla y parámetros ya configurados en la Sección 7, sin
-modificar la configuración del generador. El atributo nuevo se reejó correctamente en la clase
+modificar la configuración del generador. El atributo nuevo se reflejó correctamente en la clase
 generada, junto con sus métodos de acceso correspondientes (getFechaUltimoMantenimiento /
 setFechaUltimoMantenimiento).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.45\textwidth]{modelo_antes.png}
+    \includegraphics[width=0.45\textwidth]{figuras/modelo_antes.png}
     \hfill
     \includegraphics[width=0.45\textwidth]{modelo_despues.png}
     \caption{Modelo antes (izquierda) y después (derecha) del cambio.}
