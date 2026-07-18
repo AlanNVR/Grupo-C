@@ -93,6 +93,14 @@ El MDD es la aplicación práctica del MDE al ciclo de vida del software: los mo
 
 \subsection{Transformaciones M2M y M2T}
 \label{sec:m2m-m2t}
+Dentro del ciclo MDA/MDD existen dos familias de transformación:
+ 
+\begin{itemize}
+  \item \textbf{Modelo-a-modelo (M2M):} produce un modelo destino (p. ej. un PSM) a partir de un modelo de origen (p. ej. un PIM), ambos conformes a sus respectivos metamodelos. El estándar de referencia del OMG es QVT (Query/View/Transformation) v1.3 \cite{omg2016qvt}.
+  \item \textbf{Modelo-a-texto (M2T):} produce artefactos textuales —código fuente, configuración, documentación— a partir de un modelo. El estándar de referencia es MOFM2T v1.0 \cite{omg2008mofm2t}.
+\end{itemize}
+ 
+La generación de código realizada en este trabajo corresponde a una transformación M2T: el diagrama de clases UML no se transforma en otro modelo, sino directamente en el texto fuente del lenguaje objetivo, mediante la plantilla del \textit{Instant Generator} de Visual Paradigm.
 
 \subsection{Estado del arte y vigencia del enfoque}
 \label{sec:estado-arte}
