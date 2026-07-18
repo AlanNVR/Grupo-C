@@ -150,7 +150,16 @@ Universidad.
 
 \subsection{Sesgos y limitaciones de los generadores basados en IA generativa}
 \label{sec:sesgos-ia}
-
+Conviene distinguir dos familias de "generación automática de código" que suelen confundirse:
+ 
+\begin{enumerate}
+  \item \textbf{Generación determinista basada en transformación de modelos (MDA/MDD):} la usada en este trabajo con Visual Paradigm. El código se produce por reglas fijas (plantillas M2T) aplicadas de forma reproducible sobre un modelo explícito. Dado el mismo modelo y la misma plantilla, el resultado es siempre el mismo, y cada línea generada es trazable a un elemento concreto del diagrama de clases.
+  \item \textbf{Generación mediante IA generativa (LLMs, p. ej. GitHub Copilot):} el código se produce por inferencia probabilística sobre un corpus de entrenamiento, sin garantía de reproducibilidad ni de trazabilidad a una especificación formal.
+\end{enumerate}
+ 
+La literatura reciente documenta riesgos concretos de la segunda familia que no aplican al enfoque MDA/Visual Paradigm usado en el PFC. Pearce et al. \cite{pearce2022}, en un estudio empírico sobre 1\,689 programas producidos por GitHub Copilot, encontraron que aproximadamente el 40\,\% contenía vulnerabilidades de seguridad explotables, resultado directamente atribuible a que el modelo generativo aprende patrones —incluyendo patrones inseguros— de su corpus de entrenamiento, sin ninguna garantía formal de corrección. Ebert y Louridas \cite{ebert2023} añaden que, más allá de la seguridad, el uso de IA generativa en la industria del software plantea interrogantes abiertos sobre productividad real, gobernanza del riesgo y procedencia del código sugerido, precisamente por la ausencia de un modelo fuente auditable del cual derive la sugerencia.
+ 
+Frente a esto, la generación determinista de Visual Paradigm no sufre de alucinaciones ni de incertidumbre sobre el origen del código, porque no existe entrenamiento estadístico de por medio: cada clase, atributo y método generado proviene de un elemento explícito del diagrama UML, verificable y editable por el equipo. Esta propiedad es la que permite ejecutar de forma confiable el \textit{roundtrip} controlado exigido en la Sección 8 de este documento, algo que un generador basado en IA generativa no podría garantizar de forma determinista. Por esta razón —y no solo por conveniencia técnica— el equipo considera que la elección de Visual Paradigm es también una decisión éticamente más segura para un artefacto académico que debe ser reproducible y verificable.
 
 
 
