@@ -163,7 +163,44 @@ Frente a esto, la generación determinista de Visual Paradigm no sufre de alucin
 % 4. JUSTIFICACION DE LA HERRAMIENTA (Allan Villafuerte)
 \section{Justificación de la selección de la herramienta}
 
-[Pendiente]
+La herramienta seleccionada fue Visual Paradigm 18.0 porque ofrece un flujo directo y
+reproducible desde clases UML hacia código C\#, mediante su \textit{Instant Generator}.
+La documentación oficial permite seleccionar el lenguaje, las clases, la ruta de salida y,
+cuando sea necesario, un directorio de plantillas personalizadas
+\cite{vpInstantCSharp}. Esta capacidad satisface el propósito de la actividad: demostrar una
+transformación modelo-a-texto sobre un modelo perteneciente al PFC y no producir código
+aislado sin correspondencia con UML.
+
+Visual Paradigm también permite crear perfiles propios, definir estereotipos y valores
+etiquetados, y aplicarlos a elementos concretos del modelo
+\cite{vpProfileDiagram,vpApplyStereotype}. En SIMPA esta capacidad se utiliza para separar
+entidades del dominio, servicios, repositorios, integraciones externas y objetos de
+transferencia, conservando una relación explícita entre cada elemento UML y el artefacto
+C\# que debe generar. Los estereotipos se consideran metadatos de clasificación; solo
+modifican el código cuando la plantilla de generación consulta sus valores, por lo que no
+se atribuye al estereotipo \texttt{Entity} un comportamiento de persistencia automático que
+no haya sido configurado.
+
+Enterprise Architect fue considerado como alternativa válida, ya que su documentación
+oficial también contempla generación, ingeniería inversa, sincronización y personalización
+de plantillas \cite{eaCodeEngineering}. Sin embargo, migrar en esta etapa obligaría a
+reconstruir o convertir el proyecto nativo, repetir la configuración del perfil y rehacer
+evidencias ya producidas. El repositorio del equipo ya contiene el archivo
+\texttt{SIMPA\_MDD\_Grupo\_C.vpp}, capturas progresivas del modelado y una validación
+sin advertencias. Por tanto, la decisión no se basa en que Enterprise Architect carezca de
+funciones MDD, sino en que Visual Paradigm reduce el riesgo de migración y mantiene la
+trazabilidad de los artefactos existentes.
+
+GitHub Copilot tampoco se seleccionó como mecanismo principal porque su función es
+proponer sugerencias de código dentro del editor, que el desarrollador puede aceptar o
+descartar, y no transformar de forma determinista un modelo UML de origen
+\cite{githubCopilotSuggestions}. Puede emplearse como apoyo secundario, pero no reemplaza
+el ciclo modelo--generación--verificación--regeneración exigido por la rúbrica.
+
+En consecuencia, Visual Paradigm representa la alternativa de menor riesgo para el equipo:
+trabaja con el formato nativo ya versionado, genera C\#, admite perfiles UML, permite
+integración con Visual Studio y ofrece mecanismos de actualización del modelo desde el
+código \cite{vpVisualStudioGeneration,vpVisualStudioReverse}.
 
 % 5. DESCRIPCION DEL SUBSISTEMA DEL PFC (Allan Villafuerte)
 
