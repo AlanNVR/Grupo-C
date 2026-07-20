@@ -35,6 +35,7 @@ ec.edu.uteq.simpa.modelo
 │                   └── demo/
 │                       ├── Main.java
 │                       └── LoteCrud.java
+├── Informe_generacion_codigo.tex
 └── README.md
 ```
 
@@ -338,7 +339,19 @@ Para futuras regeneraciones se aplicará la siguiente política:
 9. Probar los archivos localmente antes de copiarlos al repositorio.
 10. Registrar los cambios mediante commits separados y trazables.
 
-## 14. Archivos excluidos del repositorio
+## 14. Informe de generación de código
+
+El archivo `Informe_generacion_codigo.tex` contiene la documentación correspondiente a la configuración del generador de Visual Paradigm, la generación del código Java, la compilación, la ejecución de la unidad demostrable, la correspondencia entre el modelo UML y el código, la evaluación de calidad y la política de regeneración.
+
+Este archivo se mantiene como un fragmento LaTeX para incorporarlo en el documento grupal mediante:
+
+```latex
+\input{Informe_generacion_codigo}
+```
+
+La numeración de la sección y de sus subsecciones se ajustará automáticamente según la ubicación en la que se incluya dentro del documento principal.
+
+## 15. Archivos excluidos del repositorio
 
 No se incluyen carpetas ni archivos derivados de la compilación:
 
@@ -353,7 +366,7 @@ Tampoco se incluyen archivos ZIP duplicados del código.
 
 Estos elementos pueden regenerarse localmente mediante los comandos documentados anteriormente.
 
-## 15. Evidencias relacionadas
+## 16. Evidencias relacionadas
 
 Las evidencias de este proceso se almacenan en la carpeta:
 

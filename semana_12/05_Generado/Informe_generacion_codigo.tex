@@ -1,0 +1,230 @@
+% Fragmento LaTeX para incorporar en el documento grupal.
+% La numeración no está escrita manualmente: \section y \subsection
+% adoptarán automáticamente el número que corresponda en el documento principal.
+
+\section{Configuración del generador, código y verificación}
+
+\subsection{Alcance del trabajo realizado}
+
+Esta sección documenta la configuración del generador de código de Visual Paradigm, la generación de las clases Java derivadas del modelo UML de \textbf{SIMPA: Sistema Inteligente de Mantenimiento de Palma Africana}, la compilación del resultado y la ejecución de una unidad demostrable. El trabajo se realizó sobre el proyecto \texttt{SIMPA\_MDD\_Grupo\_C.vpp} y no guarda relación con sistemas de gimnasio.
+
+El modelo utilizado contiene ocho clases de dominio, todas clasificadas con el estereotipo \texttt{Entity}: \texttt{Usuario}, \texttt{Administrador}, \texttt{Trabajador}, \texttt{Plantacion}, \texttt{Lote}, \texttt{Palma}, \texttt{Labor} y \texttt{RegistroClimatico}.
+
+\subsection{Configuración del generador}
+
+El generador instantáneo de Visual Paradigm se configuró con Java como lenguaje objetivo y UTF-8 como codificación. Se activó la generación de getters y setters, operaciones de asociación, operaciones adicionales de colecciones, genéricos y archivo de construcción Ant. Las asociaciones múltiples se implementaron mediante \texttt{ArrayList}, mientras que los atributos de fecha se representaron mediante \texttt{java.time.LocalDate}. La compatibilidad se configuró para JDK 8 o superior.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Parámetros principales del generador de código}
+\begin{tabular}{|p{0.29\linewidth}|p{0.61\linewidth}|}
+\hline
+\textbf{Parámetro} & \textbf{Configuración aplicada} \\
+\hline
+Lenguaje y codificación & Java y UTF-8 \\
+\hline
+Prefijos & Atributos: \texttt{\_}; parámetros: \texttt{a}; variables locales: \texttt{l} \\
+\hline
+Asociaciones múltiples & \texttt{ArrayList} con genéricos \\
+\hline
+Versión de JDK & 8.0 o superior \\
+\hline
+Archivo de construcción & Generación de \texttt{build.xml} activada \\
+\hline
+Confirmación de sobrescritura & Activada \\
+\hline
+Carpeta de salida & \texttt{05\_Generado/codigo\_generado} \\
+\hline
+\end{tabular}
+\end{table}
+
+Como política preventiva, se utilizó la vista previa antes de la generación y se mantuvo activa la confirmación antes de sobrescribir archivos. La generación finalizó correctamente al 100\,\%.
+
+\subsection{Resultado de la generación}
+
+Visual Paradigm produjo el archivo \texttt{build.xml} y ocho archivos Java dentro del paquete \texttt{ec.edu.uteq.simpa.modelo}. La estructura obtenida fue la siguiente:
+
+\begin{verbatim}
+codigo_generado/
+|-- build.xml
+`-- ec/edu/uteq/simpa/modelo/
+    |-- Administrador.java
+    |-- Labor.java
+    |-- Lote.java
+    |-- Palma.java
+    |-- Plantacion.java
+    |-- RegistroClimatico.java
+    |-- Trabajador.java
+    `-- Usuario.java
+\end{verbatim}
+
+La vista previa permitió comprobar que \texttt{LocalDate} se importó correctamente, que las multiplicidades de varios elementos se convirtieron en colecciones \texttt{ArrayList}, que se generaron getters y setters y que las referencias entre clases se conservaron en el código.
+
+\subsection{Compilación y unidad demostrable}
+
+La primera validación consistió en compilar las ocho clases exactamente como fueron generadas, sin modificaciones directas. La compilación concluyó sin errores y produjo ocho archivos \texttt{.class}.
+
+Para cumplir con la ejecución de una unidad demostrable se creó código manual en una carpeta separada:
+
+\begin{verbatim}
+codigo_manual/
+`-- ec/edu/uteq/simpa/demo/
+    |-- Main.java
+    `-- LoteCrud.java
+\end{verbatim}
+
+\texttt{Main.java} instancia y relaciona objetos del dominio de SIMPA. La demostración verifica la herencia de \texttt{Administrador} y \texttt{Trabajador}, el uso de getters y setters, las asociaciones entre plantación, lote, palma, labor y registro climático, y el manejo de fechas mediante \texttt{LocalDate}.
+
+Además, \texttt{LoteCrud.java} implementa en memoria las operaciones Create, Read, Update y Delete para la entidad \texttt{Lote}. La compilación conjunta produjo diez archivos \texttt{.class}: ocho clases generadas, \texttt{Main.class} y \texttt{LoteCrud.class}. La ejecución confirmó el registro, consulta, actualización y eliminación de un lote, así como la verificación final de que el objeto dejó de existir.
+
+Los comandos completos, las rutas de ejecución y los resultados esperados se encuentran documentados en el archivo \texttt{README.md} de la carpeta \texttt{05\_Generado}; por esta razón no se repiten en esta sección del informe.
+
+\subsection{Correspondencia entre el modelo UML y el código}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Correspondencia entre el modelo UML y el código generado, parte 1}
+\begin{tabular}{|p{0.22\linewidth}|p{0.28\linewidth}|p{0.41\linewidth}|}
+\hline
+\textbf{Clase UML} & \textbf{Archivo generado} & \textbf{Correspondencia observada} \\
+\hline
+\texttt{Usuario} & \texttt{Usuario.java} & Clase abstracta con atributos privados, getters y setters. Contiene dos operaciones sin implementación. \\
+\hline
+\texttt{Administrador} & \texttt{Administrador.java} & Hereda de \texttt{Usuario} mediante \texttt{extends} e incorpora el atributo \texttt{nivelAcceso}. \\
+\hline
+\texttt{Trabajador} & \texttt{Trabajador.java} & Hereda de \texttt{Usuario}, incorpora \texttt{equipo} y una colección de labores realizadas. \\
+\hline
+\texttt{Plantacion} & \texttt{Plantacion.java} & Conserva sus atributos y la composición múltiple con \texttt{Lote} mediante una colección. \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Correspondencia entre el modelo UML y el código generado, parte 2}
+\begin{tabular}{|p{0.22\linewidth}|p{0.28\linewidth}|p{0.41\linewidth}|}
+\hline
+\textbf{Clase UML} & \textbf{Archivo generado} & \textbf{Correspondencia observada} \\
+\hline
+\texttt{Lote} & \texttt{Lote.java} & Incluye sus atributos, \texttt{LocalDate} y las relaciones con plantación, palmas, labores y registros climáticos. \\
+\hline
+\texttt{Palma} & \texttt{Palma.java} & Conserva sus atributos y la referencia simple hacia \texttt{Lote}. \\
+\hline
+\texttt{Labor} & \texttt{Labor.java} & Conserva atributos, fecha, estado y referencias hacia \texttt{Lote} y \texttt{Trabajador}. \\
+\hline
+\texttt{RegistroClimatico} & \texttt{RegistroClimatico.java} & Conserva fecha, lluvia, horas de luz y referencia hacia \texttt{Lote}. \\
+\hline
+\end{tabular}
+\end{table}
+
+La correspondencia es directa: cada clase UML produjo un archivo Java con el mismo nombre, mientras que la herencia, los tipos de fecha y las multiplicidades principales se trasladaron al código.
+
+\subsection{Revisión técnica del código generado}
+
+La revisión identificó diecisiete operaciones que lanzan \texttt{UnsupportedOperationException}. Estas operaciones son esqueletos válidos para compilación, pero producirán una excepción si se ejecutan antes de ser implementadas. Se distribuyen de la siguiente manera:
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Operaciones pendientes de implementación manual}
+\begin{tabular}{|p{0.27\linewidth}|p{0.63\linewidth}|}
+\hline
+\textbf{Clase} & \textbf{Operaciones pendientes} \\
+\hline
+\texttt{Usuario} & \texttt{validarCredenciales}, \texttt{cerrarSesion} \\
+\hline
+\texttt{Administrador} & \texttt{registrarPlantacion}, \texttt{registrarLote} \\
+\hline
+\texttt{Trabajador} & \texttt{asignarLabor}, \texttt{completarLabor} \\
+\hline
+\texttt{Plantacion} & \texttt{agregarLote}, \texttt{buscarLote} \\
+\hline
+\texttt{Lote} & \texttt{agregarPalma}, \texttt{registrarLabor}, \texttt{registrarClima} \\
+\hline
+\texttt{Palma} & \texttt{actualizarEstado}, \texttt{estaActiva} \\
+\hline
+\texttt{Labor} & \texttt{validarDatos}, \texttt{marcarCompletada} \\
+\hline
+\texttt{RegistroClimatico} & \texttt{validarLectura}, \texttt{esLluviaAlta} \\
+\hline
+\end{tabular}
+\end{table}
+
+Por este motivo, la unidad demostrable y el CRUD utilizaron únicamente constructores implícitos, getters, setters, referencias y colecciones que podían ejecutarse de forma segura.
+
+\subsection{Evaluación de calidad del código generado}
+
+Tomando como referencia criterios de calidad de producto de ISO/IEC 25010, se obtuvieron los siguientes resultados:
+
+\begin{itemize}
+    \item \textbf{Organización y trazabilidad:} el paquete y los nombres de archivo mantienen una correspondencia clara con el modelo UML, lo que facilita localizar el origen de cada elemento.
+
+    \item \textbf{Encapsulación:} los atributos ordinarios son privados y cuentan con getters y setters; sin embargo, varias referencias y colecciones de asociaciones fueron generadas como campos públicos, lo que reduce el control sobre el estado interno.
+
+    \item \textbf{Legibilidad:} los nombres representan correctamente conceptos del dominio de SIMPA y los comentarios describen el propósito de las operaciones.
+
+    \item \textbf{Mantenibilidad:} la separación entre código generado y código manual disminuye el riesgo de perder cambios durante una regeneración. Los cambios estructurales deben realizarse primero en el modelo UML.
+
+    \item \textbf{Herencia y asociaciones:} la jerarquía de usuarios y las relaciones principales se conservaron correctamente. No obstante, la consistencia bidireccional de las asociaciones debe mantenerse manualmente.
+
+    \item \textbf{Compatibilidad:} el código se configuró para Java 8 o superior y fue compilado y ejecutado correctamente con Java 21.0.9 LTS.
+
+    \item \textbf{Limitaciones:} no se generaron reglas de negocio completas, validaciones, persistencia, manejo de errores ni pruebas unitarias. El estereotipo \texttt{Entity} funciona como clasificación UML y no produjo anotaciones JPA.
+\end{itemize}
+
+En términos generales, el resultado constituye una base estructural válida y trazable, pero no una aplicación terminada. La generación automática reduce trabajo repetitivo, aunque requiere desarrollo manual para completar el comportamiento funcional.
+
+\subsection{Relación con los requisitos de SIMPA}
+
+Las clases generadas ofrecen soporte estructural para la gestión de usuarios, plantaciones, lotes, palmas, labores agrícolas y registros climáticos. Las asociaciones permiten representar la relación entre un trabajador y sus labores, entre una plantación y sus lotes, y entre un lote y sus palmas, labores y datos climáticos.
+
+Esta correspondencia es principalmente estructural. El cumplimiento completo de los requisitos funcionales dependerá de implementar las operaciones pendientes, las validaciones, la persistencia y las interfaces que se definan en iteraciones posteriores.
+
+\subsection{Política de regeneración}
+
+Para evitar pérdidas de información y mantener la trazabilidad se estableció la siguiente política:
+
+\begin{enumerate}
+    \item Utilizar la vista previa antes de cada generación.
+    \item Mantener activada la confirmación antes de sobrescribir archivos.
+    \item Realizar en el modelo UML los cambios de clases, atributos, tipos, herencia y relaciones.
+    \item No editar directamente el código generado cuando el cambio pueda realizarse desde el modelo.
+    \item Mantener separado el código generado del código manual.
+    \item Compilar y ejecutar nuevamente la unidad demostrable después de cada regeneración.
+    \item Validar localmente antes de copiar archivos al repositorio.
+    \item Excluir carpetas de compilación y archivos \texttt{.class} del repositorio.
+    \item Conservar evidencias de configuración, generación, compilación y ejecución.
+    \item Registrar los cambios significativos mediante commits separados y trazables.
+\end{enumerate}
+
+\subsection{Evidencias de verificación}
+
+Las evidencias asociadas a esta sección se organizaron de la siguiente manera:
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Evidencias de configuración, generación y verificación}
+\begin{tabular}{|p{0.23\linewidth}|p{0.67\linewidth}|}
+\hline
+\textbf{Evidencias} & \textbf{Contenido demostrado} \\
+\hline
+\texttt{EV14--EV16} & Vista previa de archivos, log de generación y revisión del código de \texttt{Lote}. \\
+\hline
+\texttt{EV17--EV19} & Generación completada, archivos Java obtenidos y estructura de salida con \texttt{build.xml}. \\
+\hline
+\texttt{EV20} & Compilación inicial de las ocho clases generadas. \\
+\hline
+\texttt{EV21--EV23} & Creación, compilación y ejecución de la unidad demostrable inicial. \\
+\hline
+\texttt{EV24--EV26} & Implementación, compilación y ejecución del CRUD manual de \texttt{Lote}. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Conclusión de la verificación}
+
+La configuración y generación de código se completaron correctamente. Las ocho clases producidas por Visual Paradigm compilaron sin modificaciones directas y conservaron los elementos principales del modelo UML. La unidad demostrable y el CRUD manual permitieron verificar el uso real de las entidades generadas sin mezclar el código manual con el código regenerable. Las limitaciones encontradas, especialmente las operaciones no implementadas y la exposición pública de asociaciones, deberán considerarse en futuras iteraciones de desarrollo.
