@@ -297,7 +297,8 @@ generador; la comprobación automática de calidad identifica posibles defectos 
 sobre los elementos del diagrama \cite{vpModelQuality}.
 
 Cuando se realice ingeniería inversa, el resultado se ubicará en un paquete separado
-\texttt{SIMPA.PSM.Implementacion}. Visual Paradigm permite actualizar modelos desde
+\texttt{SIMPA.PSM.Implementacion}.
+Visual Paradigm permite actualizar modelos desde
 clases C\# mediante su integración con Visual Studio \cite{vpVisualStudioReverse}. De esta
 forma, los cambios del código pueden compararse con el modelo de origen sin sobrescribir
 de manera automática la línea base validada.
@@ -411,7 +412,14 @@ Enlace a commits por integrante: \url{https://github.com/AlanNVR/Grupo-C/commits
 % 12. CONCLUSIONES
 
 \section{Conclusiones}
-% 
+El desarrollo de este trabajo permitió comprobar, de forma práctica y no solo teórica, la vigencia del paradigma Model-Driven Engineering como estrategia de generación de software. La aplicación del ciclo MDA sobre el subsistema de mantenimiento fitosanitario de SIMPA evidenció que un modelo UML preciso —con clases, atributos, relaciones y estereotipos correctamente definidos— puede constituirse en la fuente autoritativa a partir de la cual se deriva código fuente reproducible, trazable y libre de las incertidumbres propias de los generadores basados en IA generativa.
+
+La selección de Visual Paradigm como herramienta CASE resultó adecuada para los fines del PFC: permitió ejecutar una transformación M2T determinista sobre el paquete SIMPA.Dominio, generar código C\# correspondiente a las ocho clases del núcleo del dominio, y verificar la correspondencia exacta entre cada elemento del diagrama de clases y el artefacto generado. Asimismo, el cierre del ciclo roundtrip —mediante la incorporación del atributo fechaUltimoMantenimiento a la clase Palma— confirmó que el modelo y el código pueden mantenerse sincronizados sin pérdida de trazabilidad ni intervención manual sobre la lógica generada.
+
+En el plano ético, el equipo constató que la transparencia entre código generado y código escrito a mano, así como la separación de responsabilidades sobre el licenciamiento de los artefactos producidos, son condiciones indispensables para sostener la validez académica de la evidencia presentada. La comparación con enfoques de generación basados en LLMs reforzó la conveniencia de un mecanismo determinista como el de Visual Paradigm para un ejercicio que exige reproducibilidad y verificación.
+
+En conjunto, el proyecto demuestra que el subsistema modelado de SIMPA cumple con los requisitos funcionales de trazabilidad establecidos en el ERS (RF-002 a RF-020 relacionados), y que la metodología MDD aplicada constituye una base sólida para futuras iteraciones del sistema completo.
+
 % 13. REFERENCIAS 
 
 \section{Referencias}
