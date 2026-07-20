@@ -206,21 +206,102 @@ código \cite{vpVisualStudioGeneration,vpVisualStudioReverse}.
 
 \section{Descripción del subsistema del PFC modelado}
 
+El modelo de origen corresponde al subsistema de mantenimiento y monitoreo fitosanitario
+del Sistema Inteligente de Mantenimiento de Palma Africana. Su propósito es registrar la
+estructura de plantaciones, lotes y palmas; identificar al trabajador responsable; almacenar
+las labores ejecutadas; asociar diagnósticos a una palma; y producir alertas cuando se
+detecta una condición relevante.
 
+El alcance mantiene trazabilidad con los requisitos del ERS de SIMPA: gestión de
+plantaciones y lotes (RF-002), gestión de personal (RF-003), registro de labores agrícolas
+(RF-004), monitoreo fitosanitario (RF-005), análisis y diagnóstico (RF-007 y RF-008),
+generación de alertas (RF-012) e historial por lote (RF-020). No incluye control automático
+de riego, operación de drones, gestión contable ni comercialización de la producción, ya
+que esas capacidades están excluidas del PFC.
+
+La clase \texttt{Palma} funciona como entidad central. Cada palma pertenece a un lote, puede
+recibir labores y puede acumular diagnósticos. Las responsabilidades de coordinación se
+ubican en \texttt{MantenimientoService}, mientras el acceso a datos y la integración con el
+servicio de análisis se representan mediante interfaces, evitando mezclar la lógica del
+dominio con detalles de infraestructura.
 
 % 6. MODELO UML DE ORIGEN (Allan Villafuerte)
 
 \section{Modelo UML de origen}
 
+El modelo se organizó en cuatro paquetes: \texttt{SIMPA.Dominio},
+\texttt{SIMPA.Aplicacion}, \texttt{SIMPA.Persistencia} y
+\texttt{SIMPA.Integraciones}. El núcleo contiene ocho clases del dominio:
+\texttt{Plantacion}, \texttt{Lote}, \texttt{Palma}, \texttt{Usuario},
+\texttt{Trabajador}, \texttt{Labor}, \texttt{Diagnostico} y \texttt{Alerta}.
+Todas presentan atributos tipados, visibilidad explícita y operaciones con parámetros y
+tipo de retorno. Como elementos técnicos se incorporan
+\texttt{MantenimientoService}, \texttt{IPalmaRepository},
+\texttt{IServicioAnalisisIA} y \texttt{ResultadoAnalisisDTO}.
 
 \begin{figure}[H]
   \centering
-  
-  \caption{Diagrama de clases del subsistema [nombre].}
+  \includegraphics[width=\textwidth]{../06_Evidencias/EV07_Diagrama_clases_con_estereotipo_Entity.png}
+  \caption{Diagrama de clases de origen del subsistema de mantenimiento de SIMPA.}
   \label{fig:diagrama-clases}
 \end{figure}
 
-Archivo nativo del modelo: \texttt{modelo/proyecto.vpp}.
+\begin{table}[H]
+\centering
+\small
+\caption{Relaciones principales y multiplicidades del modelo de origen.}
+\begin{tabular}{p{3cm}p{3cm}p{3cm}p{3.4cm}}
+\toprule
+\textbf{Origen} & \textbf{Relación} & \textbf{Destino} & \textbf{Multiplicidad} \\
+\midrule
+Plantacion & Composición & Lote & 1 a 1..* \\
+Lote & Composición & Palma & 1 a 1..* \\
+Lote & Asociación & Labor & 1 a 0..* \\
+Trabajador & Asociación & Labor & 1 a 0..* \\
+Palma & Asociación & Diagnostico & 1 a 0..* \\
+Diagnostico & Asociación & Alerta & 1 a 0..1 \\
+Trabajador & Generalización & Usuario & Herencia \\
+MantenimientoService & Dependencia & Repositorio/servicio IA & Uso \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Aplicación del perfil UML de SIMPA.}
+\begin{tabular}{p{2.7cm}p{3cm}p{6.5cm}}
+\toprule
+\textbf{Estereotipo} & \textbf{Metaclase} & \textbf{Elementos} \\
+\midrule
+Entity & Class & Plantacion, Lote, Palma, Usuario, Trabajador, Labor, Diagnostico y Alerta \\
+Service & Class & MantenimientoService \\
+Repository & Interface & IPalmaRepository \\
+ExternalService & Interface & IServicioAnalisisIA \\
+DTO & Class & ResultadoAnalisisDTO \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La composición expresa que un lote no existe fuera de su plantación y que una palma
+pertenece a un lote. Las asociaciones de labores y diagnósticos conservan historial sin
+forzar que cada registro sea único. La multiplicidad \texttt{0..1} entre
+\texttt{Diagnostico} y \texttt{Alerta} permite que un diagnóstico normal no genere alerta,
+mientras uno crítico sí puede hacerlo.
+
+El archivo nativo se conserva en
+\texttt{semana\_12/02\_Modelo/SIMPA\_MDD\_Grupo\_C.vpp}. Para evitar alterar
+los diagramas previos, la vista refinada debe agregarse como
+\texttt{MDD\_Origen\_SIMPA}. El modelo se valida con Model Quality antes de ejecutar el
+generador; la comprobación automática de calidad identifica posibles defectos directamente
+sobre los elementos del diagrama \cite{vpModelQuality}.
+
+Cuando se realice ingeniería inversa, el resultado se ubicará en un paquete separado
+\texttt{SIMPA.PSM.Implementacion}. Visual Paradigm permite actualizar modelos desde
+clases C\# mediante su integración con Visual Studio \cite{vpVisualStudioReverse}. De esta
+forma, los cambios del código pueden compararse con el modelo de origen sin sobrescribir
+de manera automática la línea base validada.
+
 
 
 % 7. CONFIGURACION DEL GENERADOR (Alex Mora)
