@@ -56,7 +56,11 @@ Repositorio: \url{https://github.com/AlanNVR/Grupo-C}
 % 2. RESUMEN (máx. 200 palabras)
 
 \section*{Resumen}
-[Pendiente: resumen ejecutivo del trabajo]
+Este trabajo presenta la aplicación del enfoque Model-Driven Development (MDD) al subsistema de mantenimiento fitosanitario del Sistema Inteligente de Mantenimiento de Palma Africana (SIMPA), utilizando Visual Paradigm 18.0 como herramienta CASE de generación de código. A partir de un modelo UML organizado en cuatro paquetes (SIMPA.Dominio, SIMPA.Aplicacion, SIMPA.Persistencia y SIMPA.Integraciones), se ejecutó una transformación modelo-a-texto (M2T) mediante el Instant Generator de la herramienta, produciendo código C\# correspondiente a las ocho clases del dominio y a los elementos técnicos asociados (servicios, repositorios e interfaces).
+
+El documento fundamenta teóricamente la decisión bajo los principios de MDE y MDA, justifica la selección de Visual Paradigm frente a alternativas como Enterprise Architect y GitHub Copilot, y examina los criterios éticos de transparencia, licenciamiento y confiabilidad involucrados en el uso de generadores de código. Como evidencia del cierre del ciclo de desarrollo, se documenta un caso de roundtrip: la incorporación del atributo fechaUltimoMantenimiento a la clase Palma, verificando su correcta propagación al código generado.
+
+Los resultados confirman que la generación determinista de código a partir de modelos UML ofrece trazabilidad, reproducibilidad y verificabilidad superiores a los enfoques basados en IA generativa, constituyendo una base metodológica sólida para el desarrollo del subsistema evaluado.
 
 \newpage
 \tableofcontents
